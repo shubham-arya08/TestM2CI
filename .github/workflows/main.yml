@@ -53,7 +53,7 @@ jobs:
         
       - name: 'launch magento2 unit test only on email module'
         if: always()
-        uses: shubham-arya08/TestM2CI@v3.11
+        uses: shubham-arya08/TestM2CI@v1.0.0
         env:
           COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
         with:
