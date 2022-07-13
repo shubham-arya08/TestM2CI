@@ -44,13 +44,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-        
+      # Run magento script
       - name: 'install fresh magento repo'
         if: ${{true}}
         uses: MAD-I-T/magento-actions@master
@@ -58,5 +52,12 @@ jobs:
           COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
         with:
           process: 'create-project'
+          
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
           magento_version: 2.4.3
   #       no_push: 1 //uncomment this to prevent src code from being pushed to repo
+      
