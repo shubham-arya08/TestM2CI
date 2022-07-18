@@ -50,16 +50,6 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-        
-      - name: 'install fresh magento repo'
-        if: ${{true}}
-        uses: MAD-I-T/magento-actions@master
-        env:
-          COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
-        with:
-          process: 'create-project'
-          magento_version: 2.4.3
-  #       no_push: 1 //uncomment this to prevent src code from being pushed to repo
   
       - name: 'launch magento2 unit test only on email module'
         if: always()
