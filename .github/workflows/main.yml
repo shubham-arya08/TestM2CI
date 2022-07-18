@@ -59,7 +59,7 @@ jobs:
         with:
           process: 'create-project'
           magento_version: 2.4.4
-  #       no_push: 1 //uncomment this to prevent src code from being pushed to repo
+          no_push: 1 //uncomment this to prevent src code from being pushed to repo
   
       - name: 'launch magento2 unit test only on email module'
         if: always()
