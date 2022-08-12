@@ -47,9 +47,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v1
 
-      - name: Validate composer files
-        run: composer validate --no-check-all --no-check-publish
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v1
 
@@ -72,6 +69,9 @@ jobs:
           process: 'create-project'
           magento_version: 2.4.4
           no_push: 1 //uncomment this to prevent src code from being pushed to repo
+          
+      - name: Validate composer files
+        run: composer validate --no-check-all --no-check-publish
           
       - name: Update require for vertex modules
         run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
