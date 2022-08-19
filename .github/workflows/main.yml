@@ -66,17 +66,12 @@ jobs:
           composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
       - name: Update require for vertex modules
-        run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
-        env:
-          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
-          
-      - name: Update require for in-dev modules
-        run: composer require --no-update vertexinc/module-request-logging-api:"@dev" vertexinc/module-request-logging:"@dev" vertexinc/sdk:"@dev"
+        run: composer require vertexinc/vertex-tax-module
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
 
       - name: Composer Install
-        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o
+        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
   
