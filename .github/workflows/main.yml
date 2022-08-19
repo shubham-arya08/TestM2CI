@@ -88,4 +88,4 @@ jobs:
         with:
           process: 'unit-test'
           elasticsearch: 1
-          unit_test_subset_path: 'vendor/vertexinc/vertex-tax-module/Test/Unit'
+          unit_test_subset_path: 'vendor/vertexinc/module-email/Test/Unit'
