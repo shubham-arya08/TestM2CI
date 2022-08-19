@@ -70,9 +70,6 @@ jobs:
           magento_version: 2.4.4
           no_push: 1 //uncomment this to prevent src code from being pushed to repo
                  
-      - name: Validate composer files
-        run: composer validate --no-check-all --no-check-publish
-
       - name: Prepare Composer Artifact Repo
         run: |
           mkdir artifact
