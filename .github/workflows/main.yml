@@ -70,12 +70,17 @@ jobs:
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
           
-      - name: Update composer
-        run: composer update:"@dev"
+      - name: Update require for in-dev modules
+        run: composer require --no-update vertexinc/module-request-logging-api:"@dev" vertexinc/module-request-logging:"@dev" vertexinc/sdk:"@dev"
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+
+      - name: Composer Install
+        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
   
-      - name: 'launch magento2 unit test only on vertex module'
+      - name: 'launch magento2 unit test only on email module'
         if: always()
         uses: MAD-I-T/magento-actions@v3.11
         env:
