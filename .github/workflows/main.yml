@@ -49,17 +49,7 @@ jobs:
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v1
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-        
+       
       - name: 'install fresh magento repo'
         if: ${{true}}
         uses: MAD-I-T/magento-actions@master
@@ -79,8 +69,13 @@ jobs:
         run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+          
+      - name: Update composer
+        run: composer update:"@dev"
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
   
-      - name: 'launch magento2 unit test only on email module'
+      - name: 'launch magento2 unit test only on vertex module'
         if: always()
         uses: MAD-I-T/magento-actions@v3.11
         env:
@@ -88,4 +83,4 @@ jobs:
         with:
           process: 'unit-test'
           elasticsearch: 1
-          unit_test_subset_path: 'vendor/magento/module-email/Test/Unit'
+          unit_test_subset_path: 'vendor/vertexinc/vertex-tax-module/Test/Unit'
