@@ -46,11 +46,6 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v1
-       
-      - name: Composer Install
-        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o
-        env:
-          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v1
@@ -74,9 +69,14 @@ jobs:
           process: 'create-project'
           magento_version: 2.4.4
           no_push: 1 //uncomment this to prevent src code from being pushed to repo
-          
+                 
       - name: Validate composer files
         run: composer validate --no-check-all --no-check-publish
+
+      - name: Prepare Composer Artifact Repo
+        run: |
+          mkdir artifact
+          composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
       - name: Update require for vertex modules
         run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
