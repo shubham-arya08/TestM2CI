@@ -66,7 +66,7 @@ jobs:
           composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
       - name: Update require for vertex modules
-        run: composer require vertexinc/vertex-tax-module
+        run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
 
