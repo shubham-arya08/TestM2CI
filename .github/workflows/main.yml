@@ -65,7 +65,7 @@ jobs:
           mkdir artifact
           composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
-      - name: Make SDK available
+      - name: Make SDK available in artifact
         uses: actions/checkout@v2
         with:
           repository: vertexinc/sdk-module
