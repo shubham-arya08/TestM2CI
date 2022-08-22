@@ -71,7 +71,7 @@ jobs:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
           
       - name: Composer Install
-        run: composer update --no-interaction --dev -o
+        run: composer update --no-interaction
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
   
