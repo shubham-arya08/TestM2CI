@@ -65,13 +65,53 @@ jobs:
           mkdir artifact
           composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
+      - name: Make vertex tax module available in artifact
+        uses: actions/checkout@v2
+        with:
+          repository: vertexinc/vertex-tax-module
+          ref: DEV
+          token: ${{ secrets.PAT }}
+          path: artifact/vertex-tax-module
+          
       - name: Make SDK available in artifact
         uses: actions/checkout@v2
         with:
           repository: vertexinc/sdk-module
-          ref: DEV
+          ref: main
           token: ${{ secrets.PAT }}
           path: artifact/sdk-module
+                 
+      - name: Make request logging module available in artifact
+        uses: actions/checkout@v2
+        with:
+          repository: vertexinc/request-logging-module
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: artifact/request-logging-module
+          
+      - name: Make request logging api module available in artifact
+        uses: actions/checkout@v2
+        with:
+          repository: vertexinc/request-logging-api-module
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: artifact/request-logging-api-module
+
+      - name: Make address validation module available in artifact
+        uses: actions/checkout@v2
+        with:
+          repository: vertexinc/address-validation-module
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: artifact/address-validation-module
+          
+      - name: Make address validation api module available in artifact
+        uses: actions/checkout@v2
+        with:
+          repository: vertexinc/address-validation-api-module
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: artifact/address-validation-api-module
           
       - name: Update require for vertex modules
         run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
