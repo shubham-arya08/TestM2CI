@@ -114,12 +114,12 @@ jobs:
           path: artifact/address-validation-api-module
           
       - name: Update require for vertex modules
-        run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
+        run: composer require --no-update vertexinc/vertex-tax-module:"@dev" vertexinc/request-logging-module:"@dev" vertexinc/request-logging-api-module:"@dev" vertexinc/sdk-module:"@dev" vertexinc/address-validation-module:"@dev" vertexinc/address-validation-api-module:"@dev" 
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
           
       - name: Composer Install
-        run: composer update --no-interaction
+        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
   
