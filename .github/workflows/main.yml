@@ -65,6 +65,14 @@ jobs:
           mkdir artifact
           composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
+      - name: Make SDK available
+        uses: actions/checkout@v2
+        with:
+          repository: vertexinc/sdk-module
+          ref: main
+          token: ${{ secrets.PAT }}
+          path: artifact/sdk-module
+          
       - name: Update require for vertex modules
         run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
         env:
