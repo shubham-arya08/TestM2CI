@@ -69,6 +69,11 @@ jobs:
         run: composer require --no-update vertexinc/vertex-tax-module:"@dev"
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+          
+      - name: Composer Install
+        run: composer update --no-interaction --dev -o
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
   
       - name: 'launch magento2 unit test only on email module'
         if: always()
