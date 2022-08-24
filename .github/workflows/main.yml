@@ -114,7 +114,7 @@ jobs:
           path: artifact/address-validation-api-module
           
       - name: Update require for vertex modules
-        run: composer require --no-update vertexinc/vertex-tax-module vertexinc/request-logging-module vertexinc/request-logging-api-module vertexinc/sdk-module vertexinc/address-validation-module vertexinc/address-validation-api-module 
+        run: composer require --no-update vertexinc/vertex-tax-module vertexinc/request-logging-module vertexinc/request-logging-api-module vertexinc/sdk-module vertexinc/address-validation-module vertexinc/address-validation-api-module --ignore-platform-req=ext-soap 
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
           
