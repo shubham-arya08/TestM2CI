@@ -119,7 +119,7 @@ jobs:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
           
       - name: Composer Install
-        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o
+        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o --ignore-platform-req=ext-soap
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
             
