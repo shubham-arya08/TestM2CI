@@ -63,7 +63,7 @@ jobs:
       - name: Prepare Composer Artifact Repo
         run: |
           mkdir artifact
-          composer config -g repositories.artifact path "$(pwd)/vendor/vertexinc/*"
+          composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
       - name: Make vertex tax module available in artifact
         uses: actions/checkout@v2
@@ -71,7 +71,7 @@ jobs:
           repository: vertexinc/vertex-tax-module
           ref: DEV
           token: ${{ secrets.PAT }}
-          path: vendor/vertexinc/vertex-tax-module
+          path: artifact/vertex-tax-module
           
       - name: Make SDK available in artifact
         uses: actions/checkout@v2
@@ -79,7 +79,7 @@ jobs:
           repository: vertexinc/sdk-module
           ref: main
           token: ${{ secrets.PAT }}
-          path: vendor/vertexinc/sdk-module
+          path: artifact/sdk-module
                  
       - name: Make request logging module available in artifact
         uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
           repository: vertexinc/request-logging-module
           ref: main
           token: ${{ secrets.PAT }}
-          path: vendor/vertexinc/request-logging-module
+          path: artifact/request-logging-module
           
       - name: Make request logging api module available in artifact
         uses: actions/checkout@v2
@@ -95,7 +95,7 @@ jobs:
           repository: vertexinc/request-logging-api-module
           ref: main
           token: ${{ secrets.PAT }}
-          path: vendor/vertexinc/request-logging-api-module
+          path: artifact/request-logging-api-module
 
       - name: Make address validation module available in artifact
         uses: actions/checkout@v2
@@ -103,7 +103,7 @@ jobs:
           repository: vertexinc/address-validation-module
           ref: main
           token: ${{ secrets.PAT }}
-          path: vendor/vertexinc/address-validation-module
+          path: artifact/address-validation-module
           
       - name: Make address validation api module available in artifact
         uses: actions/checkout@v2
@@ -111,7 +111,17 @@ jobs:
           repository: vertexinc/address-validation-api-module
           ref: main
           token: ${{ secrets.PAT }}
-          path: vendor/vertexinc/address-validation-api-module
+          path: artifact/address-validation-api-module
+          
+      - name: Update require for vertex modules
+        run: composer require --no-update vertexinc/vertex-tax-module:"@dev" vertexinc/request-logging-module:"@dev" vertexinc/request-logging-api-module:"@dev" vertexinc/sdk-module:"@dev" vertexinc/address-validation-module:"@dev" vertexinc/address-validation-api-module:"@dev" 
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+          
+      - name: Composer Install
+        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction --dev -o
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
             
       - name: 'launch magento2 unit test only on email module'
         if: always()
