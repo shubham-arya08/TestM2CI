@@ -43,7 +43,7 @@ jobs:
         with:
           php-version: '8.1'
           tools: composer
-          extension: soap 
+          extensions: soap
 
       - name: Checkout Repository
         uses: actions/checkout@v1
@@ -113,10 +113,6 @@ jobs:
           ref: main
           token: ${{ secrets.PAT }}
           path: artifact/address-validation-api-module
-     
-      - name: display pwd
-        run: ll $(pwd)
-             echo $(pwd)
           
       - name: Update require for vertex modules
         run: composer require --no-update vertexinc/vertex-tax-module vertexinc/request-logging-module vertexinc/request-logging-api-module vertexinc/sdk-module vertexinc/address-validation-module vertexinc/address-validation-api-module
