@@ -78,7 +78,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vertexinc/sdk-module
-          ref: main
+          ref: DEV
           token: ${{ secrets.PAT }}
           path: artifact/sdk-module
                  
@@ -86,7 +86,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vertexinc/request-logging-module
-          ref: main
+          ref: DEV
           token: ${{ secrets.PAT }}
           path: artifact/request-logging-module
           
@@ -94,7 +94,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vertexinc/request-logging-api-module
-          ref: main
+          ref: DEV
           token: ${{ secrets.PAT }}
           path: artifact/request-logging-api-module
 
@@ -102,7 +102,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vertexinc/address-validation-module
-          ref: main
+          ref: DEV
           token: ${{ secrets.PAT }}
           path: artifact/address-validation-module
           
@@ -110,7 +110,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vertexinc/address-validation-api-module
-          ref: main
+          ref: DEV
           token: ${{ secrets.PAT }}
           path: artifact/address-validation-api-module
           
