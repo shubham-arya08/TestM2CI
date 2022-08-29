@@ -59,7 +59,8 @@ jobs:
     - name: 'Allow permission to vendor folder.' 
       run: |
           sudo chmod 0777  ./vendor/bin/phpunit
-    - name: 'launch magento2 unit test only on vertex tax module module'
+          
+    - name: launch magento2 unit test only on vertex tax module
       if: always()
       uses: MAD-I-T/magento-actions@v3.11
       env:
@@ -69,15 +70,26 @@ jobs:
           elasticsearch: 1
           unit_test_subset_path: 'vendor/vertexinc/vertex-tax-module/Test/Unit'
           
-    - name: phpunit tests v2 
+    - name: launch magento2 unit test only on vertex sdk module
       run: |
           sudo phpunit --version
           sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/sdk-module/Test/Unit
-          
+
+    - name: launch magento2 unit test only on vertex request logging module
+      run: |
+          sudo phpunit --version
+          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/request-logging-module/Test/Unit
+    - name: launch magento2 unit test only on vertex address validation module
+      run: |
+          sudo phpunit --version
+          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/address-validation-module/Test/Unit
+         
     - name: Code Coverage Check
       uses: sourcetoad/phpunit-coverage-action@v1
       with:
         clover_report_path: coverage/clover.xml
+        min_coverage_percent: 65
+        fail_build_on_under: true
     
     - name: fix code coverage paths
       working-directory: ./coverage
