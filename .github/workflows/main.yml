@@ -51,7 +51,7 @@ jobs:
         php-version: 8.1
         coverage: xdebug
         extensions: mysql,soap
-        tools: phpunit:9.5.13
+        
       env:
         runner: self-hosted # Specify self-hosted runner.
 
