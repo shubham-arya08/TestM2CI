@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCustomersGridCustomerAttributeFullMatchFilterTest">
+        <annotations>
+            <features value="CustomerCustomAttributes"/>
+            <stories value="Customer Custom Attribute"/>
+            <title value="Customer Grid should show only customers that fully match customer attribute filter if the filter behavior is configured to 'Full Match'"/>
+            <description value="Customer Grid should show only customers that fully match customer attribute filter if the filter behavior is configured to 'Full Match'"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-2559"/>
+            <useCaseId value="ACP2E-464"/>
+            <group value="CustomerCustomAttributes"/>
+            <group value="mtf_migrated"/>
+        </annotations>
+        <before>
+            <!-- Create first customer -->
+            <createData entity="Simple_US_Customer" stepKey="createCustomer1"/>
+            <!-- Create second customer -->
+            <createData entity="Simple_US_Customer" stepKey="createCustomer2"/>
+            <!-- Log in to admin -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Go to customer attributes page -->
+            <actionGroup ref="AdminNavigateToCustomerAttributesPageActionGroup" stepKey="navigateToCustomerAttributes"/>
+            <!-- Open "email" attribute -->
+            <actionGroup ref="AdminOpenCustomerAttributeByCodeActionGroup" stepKey="openEmailAttribute">
+                <argument name="attributeCode" value="email"/>
+            </actionGroup>
+            <!-- Set "Grid Filter Condition Type" to "Full Match" -->
+            <selectOption selector="{{AdminCustomerAttributeEditSection.gridFilterConditionType}}" userInput="Full Match" stepKey="selectFullMatch"/>
+            <!-- Save the attribute -->
+            <click selector="{{CustomerAccountSection.save}}" stepKey="saveAttribute"/>
+            <waitForPageLoad stepKey="WaitForAttributeSaved"/>
+        </before>
+        <after>
+            <!-- Delete first customer -->
+            <deleteData createDataKey="createCustomer1" stepKey="deleteCustomer1"/>
+            <!-- Delete second customer -->
+            <deleteData createDataKey="createCustomer2" stepKey="deleteCustomer2"/>
+            <!-- Go to customer attributes page -->
+            <actionGroup ref="AdminNavigateToCustomerAttributesPageActionGroup" stepKey="navigateToCustomerAttributes"/>
+            <!-- Open "email" attribute -->
+            <actionGroup ref="AdminOpenCustomerAttributeByCodeActionGroup" stepKey="openEmailAttribute">
+                <argument name="attributeCode" value="email"/>
+            </actionGroup>
+            <!-- Set "Grid Filter Condition Type" to "Partial Match" -->
+            <selectOption selector="{{AdminCustomerAttributeEditSection.gridFilterConditionType}}" userInput="Partial Match" stepKey="selectPartialMatch"/>
+            <!-- Save the attribute -->
+            <click selector="{{CustomerAccountSection.save}}" stepKey="saveAttribute"/>
+            <waitForPageLoad stepKey="WaitForAttributeSaved"/>
+            <!-- Go to "all customers" page -->
+            <actionGroup ref="AdminOpenCustomersGridActionGroup" stepKey="navigateToCustomersPage"/>
+            <!-- Reset filters -->
+            <actionGroup ref="AdminResetFilterInCustomerGrid" stepKey="resetFilter"/>
+            <!-- Logout from admin -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutFromAdmin"/>
+        </after>
+        <!-- Go to "all customers" page -->
+        <actionGroup ref="AdminOpenCustomersGridActionGroup" stepKey="navigateToCustomersPage"/>
+        <!-- Filter by first customer email -->
+        <actionGroup ref="AdminFilterCustomerGridByEmail" stepKey="filterByFullValue">
+            <argument name="email" value="$$createCustomer1.email$$"/>
+        </actionGroup>
+        <!-- Assert that the grid is not empty -->
+        <actionGroup ref="AdminAssertGridNotEmptyActionGroup" stepKey="expectNotEmptyGrid"/>
+        <!-- Assert that the total number of records is 1 -->
+        <actionGroup ref="AdminAssertNumberOfRecordsInUiGridActionGroup" stepKey="assertNumberOfRecordsInShipmentsGrid">
+            <argument name="number" value="1"/>
+        </actionGroup>
+        <!-- Assert that the first customer is in the grid -->
+        <actionGroup ref="AdminAssertCustomerInCustomersGrid" stepKey="assertCustomer1InGrid">
+            <argument name="text" value="$$createCustomer1.email$$"/>
+            <argument name="row" value="1"/>
+        </actionGroup>
+        <!-- Filter by the common part of customers email -->
+        <actionGroup ref="AdminFilterCustomerGridByEmail" stepKey="filterByPartialValue">
+            <argument name="email" value="John.Doe"/>
+        </actionGroup>
+        <!-- Assert that the grid is empty -->
+        <actionGroup ref="AdminAssertGridEmptyActionGroup" stepKey="expectEmptyGrid"/>
+    </test>
+</tests>

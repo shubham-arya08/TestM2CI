@@ -1,0 +1,47 @@
+{
+    "name": "vertexinc/request-logging-module",
+    "version": "1.0.1",
+    "description": "Vertex Request Logging module for Magento 2",
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": "^100|^101|^102|^103",
+        "vertexinc/request-logging-api-module": "^1.0.1",
+        "ext-dom": "*"
+    },
+    "conflict": {
+        "vertex/module-tax": "<=3.5.0 || >=4.0 <=4.2.0"
+    },
+    "provide": {
+        "vertexinc/module-request-logging-api-implementation": "1.0"
+    },
+    "require-dev": {
+        "mediotype/code-standard": "^1.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
+    },
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Vertex\\RequestLogging\\": ""
+        }
+    },
+    "archive": {
+        "exclude": [
+            ".github/",
+            "composer.lock",
+            "phpcs-new.xml",
+            "phpcs-old.xml",
+            "vendor/",
+            ".git/",
+            ".gitignore"
+        ]
+    }
+}

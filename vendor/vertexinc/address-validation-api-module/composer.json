@@ -1,0 +1,53 @@
+{
+    "name": "vertexinc/address-validation-api-module",
+    "description": "Vertex Address Cleansing module for Magento 2 API",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "version": "1.0.2",
+    "replace": {
+        "vertex/module-address-validation-api": "self.version"
+    },
+    "require": {
+        "php": "^7.1 || ^8.0",
+        "magento/framework": "^100|^101|^102|^103",
+        "magento/module-store": "^100|^101",
+        "vertexinc/sdk-module": "^1.2.9"
+    },
+    "replace": {
+        "vertex/module-address-validation-api": "self.version"
+    },
+    "suggest": {
+        "magento/module-webapi": "^100"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "@stable",
+        "roave/security-advisories": "dev-master",
+        "mediotype/code-standard": "^1.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Vertex\\AddressValidationApi\\": ""
+        }
+    },
+    "archive": {
+        "exclude": [
+            ".github/",
+            "composer.lock",
+            "phpcs.xml",
+            "vendor/",
+            ".git/",
+            ".gitignore",
+            "phpcs-new.xml",
+            "phpcs-old.xml"
+        ]
+    }
+}

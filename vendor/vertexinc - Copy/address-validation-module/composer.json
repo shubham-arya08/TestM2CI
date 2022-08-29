@@ -1,0 +1,56 @@
+{
+    "name": "vertexinc/address-validation-module",
+    "description": "Vertex Address Validation module for Magento 2",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "version": "2.1.7",
+    "replace": {
+        "vertex/module-address-validation": "self.version"
+    },
+    "require": {
+        "php": "^7.0 || ^8.0",
+        "ext-soap": "*",
+        "ext-simplexml": "*",
+        "ext-json": "*",
+        "magento/framework": "^100|^101|^102|^103",
+        "magento/module-config": "^101",
+        "magento/module-store": "^100|^101",
+        "magento/module-quote": "^100|^101",
+        "magento/module-tax": "^100",
+        "magento/module-checkout": "^100",
+        "vertexinc/address-validation-api-module": "^1.0.2",
+        "vertexinc/vertex-tax-module": "^4.2.4"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "@stable",
+        "ext-dom": "*",
+        "roave/security-advisories": "dev-master",
+        "mediotype/code-standard": "^1.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Vertex\\AddressValidation\\": ""
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/.git",
+            ".gitattributes",
+            "phpcs.xml",
+            "/.github",
+            "/.idea",
+            ".gitignore",
+            "phpcs-old.xml",
+            "phpcs-new.xml"
+        ]
+    }
+}
