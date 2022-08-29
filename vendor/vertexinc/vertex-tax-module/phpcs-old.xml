@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author    Blue Acorn iCi <code@blueacorn.com>
+ * @copyright 2021 Vertex, Inc. All Rights Reserved.
+ */
+ -->
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Vertex.Tax">
+    <file>.</file>
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>artifact/*</exclude-pattern>
+    <rule ref="Mediotype">
+        <exclude name="Mediotype.PHP.FileHeader"/>
+    </rule>
+</ruleset>
