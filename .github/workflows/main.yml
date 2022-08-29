@@ -51,6 +51,7 @@ jobs:
         php-version: 8.1
         coverage: xdebug
         extensions: mysql,soap
+        tools: phpunit:9.5.13
         
       env:
         runner: self-hosted # Specify self-hosted runner.
@@ -59,7 +60,7 @@ jobs:
       run: |
           sudo chmod 0777  ./vendor/bin/phpunit
 
-    - name: 'launch magento2 unit test only on email module ava'
+    - name: 'launch magento2 unit test only on vertex tax module module'
       if: always()
       uses: MAD-I-T/magento-actions@v3.11
       env:
@@ -67,7 +68,7 @@ jobs:
       with:
           process: 'unit-test'
           elasticsearch: 1
-          unit_test_subset_path: 'vendor/magento/module-email/Test/Unit'
+          unit_test_subset_path: 'vendor/vertexinc/vertex-tax-module/Test/Unit'
           
     - name: phpunit tests v2 
       run: |
