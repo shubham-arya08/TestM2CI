@@ -57,7 +57,7 @@ jobs:
         
     - name: 'Allow permission to vendor folder.' 
       run: |
-          sudo chmod 0777 ./vendor
+          sudo chmod 0777  ./vendor/bin/phpunit
 
     - name: 'launch magento2 unit test only on email module ava'
       if: always()
