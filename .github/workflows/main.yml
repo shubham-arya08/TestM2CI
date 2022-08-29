@@ -86,35 +86,3 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         
-  continuous-deployment:
-    permissions:
-        id-token: write # required to use OIDC authentication
-        contents: read # required to checkout the code from repo
-        
-    runs-on: [self-hosted,Standard]
-        
-    needs: [continuous-integration]
-    if: github.ref == 'refs/heads/master'  
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0 
-    
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-region: us-east-2
-        role-to-assume: arn:aws:iam::497397011574:role/Git_codedeploy
-        role-session-name: AWSCLI_Session
-        
-    - name: Deploy using CodeDeploy 
-      id: deploy
-      run: |
-          #aws deploy list-applications 
-          aws deploy create-deployment \
-            --application-name Aws_Code_deploy \
-            --deployment-group-name Oro_5 \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
-            --file-exists-behavior OVERWRITE
