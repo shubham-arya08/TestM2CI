@@ -73,7 +73,7 @@ jobs:
     - name: phpunit tests v2 
       run: |
           sudo phpunit --version
-          sudo php bin/phpunit -c ./ --testsuite=unit --config=phpunit.xml.dist
+          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/vertex-tax-module/Test/Unit
           
     - name: Code Coverage Check
       uses: sourcetoad/phpunit-coverage-action@v1
