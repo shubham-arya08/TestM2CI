@@ -55,7 +55,7 @@ jobs:
       env:
         runner: self-hosted # Specify self-hosted runner.
 
-    - name: 'launch magento2 unit test only on email module'
+    - name: 'launch magento2 unit test only on email module ava'
       if: always()
       uses: MAD-I-T/magento-actions@v3.11
       env:
