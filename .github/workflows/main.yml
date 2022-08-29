@@ -38,101 +38,83 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          tools: composer
-          extensions: soap
-
-      - name: Checkout Repository
-        uses: actions/checkout@v1
+    
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+          # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
           
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
-       
-      - name: 'install fresh magento repo'
-        if: ${{true}}
-        uses: MAD-I-T/magento-actions@master
-        env:
-          COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
-        with:
-          process: 'create-project'
-          magento_version: 2.4.4
-          no_push: 1 //uncomment this to prevent src code from being pushed to repo
-                 
-      - name: Prepare Composer Artifact Repo
-        run: |
-          mkdir artifact
-          composer config -g repositories.artifact path "$(pwd)/artifact/*"
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.1
+        coverage: xdebug
+        extensions: mysql,soap
+        tools: phpunit:9.5.13
+      env:
+        runner: self-hosted # Specify self-hosted runner.
+        
+    - name: phpunit tests v2 
+      run: |
+          sudo phpunit --version
+          sudo php bin/phpunit -c ./ --testsuite=unit --config=phpunit.xml.dist
           
-      - name: Display the path
-        run: echo $PATH
-          
-      - name: Make vertex tax module available in artifact
-        uses: actions/checkout@v2
-        with:
-          repository: vertexinc/vertex-tax-module
-          ref: DEV
-          token: ${{ secrets.PAT }}
-          path: artifact/vertex-tax-module
-          
-      - name: Make SDK available in artifact
-        uses: actions/checkout@v2
-        with:
-          repository: vertexinc/sdk-module
-          ref: DEV
-          token: ${{ secrets.PAT }}
-          path: artifact/sdk-module
-                 
-      - name: Make request logging module available in artifact
-        uses: actions/checkout@v2
-        with:
-          repository: vertexinc/request-logging-module
-          ref: DEV
-          token: ${{ secrets.PAT }}
-          path: artifact/request-logging-module
-          
-      - name: Make request logging api module available in artifact
-        uses: actions/checkout@v2
-        with:
-          repository: vertexinc/request-logging-api-module
-          ref: DEV
-          token: ${{ secrets.PAT }}
-          path: artifact/request-logging-api-module
-
-      - name: Make address validation module available in artifact
-        uses: actions/checkout@v2
-        with:
-          repository: vertexinc/address-validation-module
-          ref: DEV
-          token: ${{ secrets.PAT }}
-          path: artifact/address-validation-module
-          
-      - name: Make address validation api module available in artifact
-        uses: actions/checkout@v2
-        with:
-          repository: vertexinc/address-validation-api-module
-          ref: DEV
-          token: ${{ secrets.PAT }}
-          path: artifact/address-validation-api-module
-          
-      - name: Update require for vertex modules
-        run: composer require --no-update vertexinc/vertex-tax-module vertexinc/request-logging-module vertexinc/request-logging-api-module vertexinc/sdk-module vertexinc/address-validation-module vertexinc/address-validation-api-module
-        env:
-          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
-          
-      - name: Composer Install
-        run: COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-interaction -o
-        env:
-          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
-            
-      - name: 'launch magento2 unit test only on email module'
-        if: always()
-        uses: MAD-I-T/magento-actions@v3.11
-        env:
-          COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
-        with:
-          process: 'unit-test'
-          elasticsearch: 1
-          unit_test_subset_path: 'vendor/magento/module-email/Test/Unit'
+    - name: Code Coverage Check
+      uses: sourcetoad/phpunit-coverage-action@v1
+      with:
+        clover_report_path: coverage/clover.xml
+        min_coverage_percent: 65
+        fail_build_on_under: true
+    
+    - name: fix code coverage paths
+      working-directory: ./coverage
+      run: |
+         sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' clover.xml
+    
+    # SonarQube Scanner Github Action
+    - name: SonarQube Scanner
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        # Args can be configured through Args section below or by sonar-project.properties in your projectBaseDir
+        args: >
+          -Dsonar.projectKey=connector-orocommerce
+          -Dsonar.projectName=connector-orocommerce
+          -Dsonar.sources=src/Vertex/OSeriesBundle -Dsonar.php.coverage.reportPaths=coverage/clover.xml -Dsonar.php.tests.reportPath=coverage/report.junit.xml
+          -Dsonar.coverage.exclusions=src\Vertex\OSeriesBundle\Migrations\**,src\Vertex\OSeriesBundle\Resources\**,src\Vertex\OSeriesBundle\Command\**,src\Vertex\OSeriesBundle\Controller\Api\Rest\**
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        
+  continuous-deployment:
+    permissions:
+        id-token: write # required to use OIDC authentication
+        contents: read # required to checkout the code from repo
+        
+    runs-on: [self-hosted,Standard]
+        
+    needs: [continuous-integration]
+    if: github.ref == 'refs/heads/master'  
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 
+    
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: us-east-2
+        role-to-assume: arn:aws:iam::497397011574:role/Git_codedeploy
+        role-session-name: AWSCLI_Session
+        
+    - name: Deploy using CodeDeploy 
+      id: deploy
+      run: |
+          #aws deploy list-applications 
+          aws deploy create-deployment \
+            --application-name Aws_Code_deploy \
+            --deployment-group-name Oro_5 \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }} \
+            --file-exists-behavior OVERWRITE
