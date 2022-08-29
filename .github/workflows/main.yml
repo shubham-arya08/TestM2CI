@@ -54,6 +54,10 @@ jobs:
         
       env:
         runner: self-hosted # Specify self-hosted runner.
+        
+    - name: 'Allow permission to vendor folder.' 
+      run: |
+          sudo chmod 0775 vendor/
 
     - name: 'launch magento2 unit test only on email module ava'
       if: always()
