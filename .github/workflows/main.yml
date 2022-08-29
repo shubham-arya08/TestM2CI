@@ -13,17 +13,29 @@ on:
   # Allows you to run this workflow manually from the Actions tabe 
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  continuous-integration:
-    # Vertex GitHub Action can only access AWS SQ server using self-hosted GitHub Runner defined below
-    runs-on: [self-hosted,Standard]
-    # The Container defined below will run job in it's own Docker container and is the recommended approach
-    container:
-      #image: ubuntu
-      image: docker.binrepo.vtxdev.net/cloud-base-images/ubuntu-base-image:latest
-      credentials:
-        username: ${{ secrets.AF_DOCKER_USER }}
-        password: ${{ secrets.AF_DOCKER_PASS }}
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    container: ubuntu
+    name: 'continuous-integration:'
+    services:
+      mysql:
+        image: docker://mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: magento
+          MYSQL_DATABASE: magento
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      elasticsearch:
+        image: docker://elasticsearch:7.1.0
+        ports:
+          - 9200:9200
+        options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -62,7 +74,7 @@ jobs:
     - name: phpunit tests v2 
       run: |
           sudo phpunit --version
-          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/vertex-tax-module/Test/Unit
+          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/sdk-module/Test/Unit
           
     - name: Code Coverage Check
       uses: sourcetoad/phpunit-coverage-action@v1
