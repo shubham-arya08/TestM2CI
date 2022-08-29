@@ -99,10 +99,6 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "type": "artifact",
-            "url": "var\\test"
-        },
-        {
             "type": "composer",
             "url": "https://repo.magento.com/"
         }
