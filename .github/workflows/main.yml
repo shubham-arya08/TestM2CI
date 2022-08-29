@@ -66,6 +66,9 @@ jobs:
           mkdir artifact
           composer config -g repositories.artifact path "$(pwd)/artifact/*"
           
+      - name: Display the path
+        run: echo $PATH
+          
       - name: Make vertex tax module available in artifact
         uses: actions/checkout@v2
         with:
