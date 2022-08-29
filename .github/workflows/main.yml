@@ -59,7 +59,7 @@ jobs:
         
     - name: 'Allow permission to vendor folder.' 
       run: |
-          sudo chmod 0777  ./vendor/bin/phpunit
+          sudo chmod 0777  ./vendor/bin/phpunit ./vendor/vertexinc
 
     - name: 'launch magento2 unit test only on vertex tax module module'
       if: always()
