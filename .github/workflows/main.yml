@@ -88,7 +88,6 @@ jobs:
         fail_build_on_under: true
     
     - name: fix code coverage paths
-      working-directory: ./coverage
       run: |
          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' clover.xml
     
