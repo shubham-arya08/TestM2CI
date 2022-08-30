@@ -22,7 +22,7 @@
 
          beStrictAboutTestsThatDoNotTestAnything="false" 
 
-         bootstrap="C:\xampp\htdocs\TestM2CI\dev\tests\unit\framework\bootstrap.php"> 
+         bootstrap="./framework/bootstrap.php"> 
 
     <coverage> 
 
