@@ -52,7 +52,7 @@ class LogRotateTest extends TestCase
     /**
      * Test that rotation may proceed when the feature is enabled.
      *
-     * @covers LogRotate::execute()
+     * @covers \Vertex\RequestLogging\Cron\LogRotate::execute()
      * @throws CouldNotDeleteException
      */
     public function testRunRotateWhenEnabled(): void
@@ -72,7 +72,7 @@ class LogRotateTest extends TestCase
     /**
      * Test that rotating does not run when the feature is disabled.
      *
-     * @covers LogRotate::execute()
+     * @covers \Vertex\RequestLogging\Cron\LogRotate::execute()
      * @throws CouldNotDeleteException
      */
     public function testSkipRotateWhenDisabled(): void

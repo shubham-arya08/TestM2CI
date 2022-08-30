@@ -25,7 +25,7 @@ use Vertex\RequestLogging\Test\Unit\TestCase;
 class LogEntryRepositoryTest extends TestCase
 {
     /**
-     * @covers LogEntryRepository::__construct()
+     * @covers \Vertex\RequestLogging\Model\Repository\LogEntryRepository::__construct()
      */
     public function testConstructorThrowsNoErrors(): void
     {
@@ -102,8 +102,8 @@ class LogEntryRepositoryTest extends TestCase
     }
 
     /**
-     * @covers LogEntryRepository::save()
-     * @covers LogEntryRepository::mapDataIntoModel()
+     * @covers \Vertex\RequestLogging\Model\Repository\LogEntryRepository::save()
+     * @covers \Vertex\RequestLogging\Model\Repository\LogEntryRepository::mapDataIntoModel()
      * @throws CouldNotSaveException
      */
     public function testModelPassedToResourceDuringSaveContainsSameData(): void
@@ -148,7 +148,7 @@ class LogEntryRepositoryTest extends TestCase
     }
 
     /**
-     * @covers LogEntryRepository::deleteById()
+     * @covers \Vertex\RequestLogging\Model\Repository\LogEntryRepository::deleteById()
      * @throws CouldNotDeleteException
      */
     public function testDeleteById(): void
@@ -172,7 +172,7 @@ class LogEntryRepositoryTest extends TestCase
     }
 
     /**
-     * @covers LogEntryRepository::delete()
+     * @covers \Vertex\RequestLogging\Model\Repository\LogEntryRepository::delete()
      * @throws CouldNotDeleteException
      */
     public function testDelete(): void
@@ -198,7 +198,7 @@ class LogEntryRepositoryTest extends TestCase
     }
 
     /**
-     * @covers LogEntryRepository::getList()
+     * @covers \Vertex\RequestLogging\Model\Repository\LogEntryRepository::getList()
      */
     public function testGetListReturnsResultFromCollection(): void
     {

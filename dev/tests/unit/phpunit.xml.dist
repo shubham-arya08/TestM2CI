@@ -1,74 +1,273 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-         colors="true"
-         columns="max"
-         beStrictAboutTestsThatDoNotTestAnything="false"
-         bootstrap="./framework/bootstrap.php">
-    <coverage>
-        <include>
-            <directory suffix=".php">../../../app/code/*</directory>
-            <directory suffix=".php">../../../lib/internal/Magento</directory>
-            <directory suffix=".php">../../../setup/src/*</directory>
-        </include>
-        <exclude>
-            <directory>../../../app/code/*/*/Test</directory>
-            <directory>../../../lib/internal/*/*/Test</directory>
-            <directory>../../../lib/internal/*/*/*/Test</directory>
-            <directory>../../../setup/src/*/*/Test</directory>
-        </exclude>
-    </coverage>
-    <testsuites>
-        <testsuite name="Magento_Unit_Tests_App_Code">
-            <directory>../../../app/code/*/*/Test/Unit</directory>
-            <directory>../../../vendor/magento/module-*/Test/Unit</directory>
-            <exclude>../../../app/code/Magento/Indexer/Test/Unit</exclude>
-        </testsuite>
-        <testsuite name="Magento_Unit_Tests_App_Code_Indexer">
-            <directory>../../../app/code/*/Indexer/Test/Unit</directory>
-        </testsuite>
-        <testsuite name="Magento_Unit_Tests_Other">
-            <directory>../../../lib/internal/*/*/Test/Unit</directory>
-            <directory>../../../lib/internal/*/*/*/Test/Unit</directory>
-            <directory>../../../setup/src/*/*/Test/Unit</directory>
-            <directory>../../../vendor/*/module-*/Test/Unit</directory>
-            <directory>../../../vendor/*/framework/Test/Unit</directory>
-            <directory>../../../vendor/*/framework/*/Test/Unit</directory>
-            <directory>../../tests/unit/*/Test/Unit</directory>
-        </testsuite>
-    </testsuites>
-    <php>
-        <ini name="memory_limit" value="-1"/>
-        <ini name="date.timezone" value="America/Los_Angeles"/>
-        <ini name="xdebug.max_nesting_level" value="200"/>
-    </php>
-    <listeners>
-        <listener class="Yandex\Allure\PhpUnit\AllurePhpUnit">
-            <arguments>
-                <string>var/allure-results</string> <!-- XML files output directory -->
-                <boolean>true</boolean> <!-- Whether to delete previous results on rerun -->
-                <array> <!-- A list of custom annotations to ignore (optional) -->
-                    <element key="codingStandardsIgnoreStart">
-                        <string>codingStandardsIgnoreStart</string>
-                    </element>
-                    <element key="codingStandardsIgnoreEnd">
-                        <string>codingStandardsIgnoreEnd</string>
-                    </element>
-                    <element key="cover">
-                        <string>cover</string>
-                    </element>
-                    <element key="expectedExceptionMessageRegExp">
-                        <string>expectedExceptionMessageRegExp</string>
-                    </element>
-                </array>
-            </arguments>
-        </listener>
-        <listener class="Magento\Framework\TestFramework\Unit\Listener\ReplaceObjectManager"/>
-    </listeners>
-</phpunit>
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!-- 
+
+/** 
+
+* Copyright © Magento, Inc. All rights reserved. 
+
+* See COPYING.txt for license details. 
+
+*/ 
+
+--> 
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" 
+
+         colors="true" 
+
+         columns="max" 
+
+         beStrictAboutTestsThatDoNotTestAnything="false" 
+
+         bootstrap="C:\xampp\htdocs\TestM2CI\dev\tests\unit\framework\bootstrap.php"> 
+
+    <coverage> 
+
+        <include> 
+
+            <directory suffix=".php">../../../app/code/*</directory> 
+
+            <directory suffix=".php">../../../lib/internal/Magento</directory> 
+
+            <directory suffix=".php">../../../setup/src/*</directory> 
+
+            <directory suffix=".php">../../../vendor/vertexinc/*</directory> 
+
+        </include> 
+
+        <exclude> 
+
+            <directory>../../../app/code/*/*/Test</directory> 
+
+            <directory>../../../lib/internal/*/*/Test</directory> 
+
+            <directory>../../../lib/internal/*/*/*/Test</directory> 
+
+            <directory>../../../setup/src/*/*/Test</directory> 
+
+            <directory>../../../vendor/vertexinc/request-logging-api-module</directory> 
+
+            <directory>../../../vendor/vertexinc/address-validation-api-module</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Api</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Service</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Ui</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Console</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Setup</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Cron</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Cache</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Api</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Data</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Plugin</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Repository</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/ResourceModel</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Test/Integration</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Test/Mftf</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Test/Unit/Model/Cache</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Test/Unit/Model/Calculation</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Config/Backend</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/FlexField/Cache</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/FlexField/Extractor</directory> 
+
+            <directory>../../..//vendor/vertexinc/vertex-tax-module/Observer/InvoiceSavedAfterWorkaroundObserver.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Observer/OrderSavedAfterWorkaroundObserver.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Observer/QuoteCollectTotalsAfterObserver.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FlexibleCodeFields.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FlexibleFieldId.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/AllowedCountries.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FlexibleNumericFields.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/OrderStatus.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/Version.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Checkout/SortTaxMessageProcessor.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Customer/Widget/TaxCountry.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FieldsetWithComment.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FlexibleFieldUtilities.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/TaxOverride.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FlexibleFieldSource.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FieldSource</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Block/Adminhtml/Config/Form/Field/FlexibleDateFields.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Test/Unit/Observer/OrderSaveAfterObserverTest.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/FlexField/Processor/ShippingAddressRetriever.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/FlexField/Processor/ProductCustomOptionProcessor.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Config.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/CollectionProcessor.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/WsdlCache.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/RequestLogger.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/VertexTaxAttributeManager.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/LogEntryExport.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/ModuleDetail.php</directory><directory>../../../vendor/vertexinc/vertex-tax-module/Model/Config/Source/AllowedCountries.php</directory> 
+
+            <directory>../../../vendor/vertexinc/vertex-tax-module/Model/Config/FlexibleFieldSerializer.php</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/src/Utility/ServiceActionPerformer.php</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/src/Utility/ServiceActionPerformerFactory.php</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/src/Utility/SoapClientFactory.php</directory> 
+
+            <directory>../../../vendor/vertexinc/request-logging-module/Test/Integration</directory> 
+
+            <directory>../../../vendor/vertexinc/request-logging-module/Setup</directory> 
+
+            <directory>../../../vendor/vertexinc/request-logging-module/Model</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/src/Mapper</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/src/Data</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/src/Services</directory> 
+
+            <directory>../../../vendor/vertexinc/sdk-module/Test</directory> 
+
+             
+
+             
+
+        </exclude> 
+
+    </coverage> 
+
+    <testsuites> 
+
+        <testsuite name="Magento_Unit_Tests_App_Code"> 
+
+            <directory>../../../app/code/*/*/Test/Unit</directory> 
+
+            <directory>../../../vendor/magento/module-*/Test/Unit</directory> 
+
+            <exclude>../../../app/code/Magento/Indexer/Test/Unit</exclude> 
+
+        </testsuite> 
+
+        <testsuite name="Magento_Unit_Tests_App_Code_Indexer"> 
+
+            <directory>../../../app/code/*/Indexer/Test/Unit</directory> 
+
+        </testsuite> 
+
+        <testsuite name="Magento_Unit_Tests_Other"> 
+
+            <directory>../../../lib/internal/*/*/Test/Unit</directory> 
+
+            <directory>../../../lib/internal/*/*/*/Test/Unit</directory> 
+
+            <directory>../../../setup/src/*/*/Test/Unit</directory> 
+
+            <directory>../../../vendor/*/module-*/Test/Unit</directory> 
+
+            <directory>../../../vendor/*/framework/Test/Unit</directory> 
+
+            <directory>../../../vendor/*/framework/*/Test/Unit</directory> 
+
+            <directory>../../tests/unit/*/Test/Unit</directory> 
+
+        </testsuite> 
+
+    </testsuites> 
+
+    <php> 
+
+        <ini name="memory_limit" value="-1"/> 
+
+        <ini name="date.timezone" value="America/Los_Angeles"/> 
+
+        <ini name="xdebug.max_nesting_level" value="200"/> 
+
+    </php> 
+
+    <listeners> 
+
+        <listener class="Yandex\Allure\PhpUnit\AllurePhpUnit"> 
+
+            <arguments> 
+
+                <string>var/allure-results</string> <!-- XML files output directory --> 
+
+                <boolean>true</boolean> <!-- Whether to delete previous results on rerun --> 
+
+                <array> <!-- A list of custom annotations to ignore (optional) --> 
+
+                    <element key="codingStandardsIgnoreStart"> 
+
+                        <string>codingStandardsIgnoreStart</string> 
+
+                    </element> 
+
+                    <element key="codingStandardsIgnoreEnd"> 
+
+                        <string>codingStandardsIgnoreEnd</string> 
+
+                    </element> 
+
+                    <element key="cover"> 
+
+                        <string>cover</string> 
+
+                    </element> 
+
+                    <element key="expectedExceptionMessageRegExp"> 
+
+                        <string>expectedExceptionMessageRegExp</string> 
+
+                    </element> 
+
+                </array> 
+
+            </arguments> 
+
+        </listener> 
+
+        <listener class="Magento\Framework\TestFramework\Unit\Listener\ReplaceObjectManager"/> 
+
+    </listeners> 
+
+</phpunit> 
+
+ 

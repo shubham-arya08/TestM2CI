@@ -110,7 +110,7 @@ class GwItemKeyManagerTest extends TestCase
     /**
      * Test that quote item ID generation is functional on an equality check.
      *
-     * @covers \Vertex\Tax\Model\Calculation\VertexCalculator\ItemKeyManager::generateGwItemMapCode
+     * @covers \Vertex\Tax\Model\Calculation\VertexCalculator\GwItemKeyManager::generateGwItemMapCode
      */
     public function testGwItemMapCodeEquality()
     {
@@ -126,7 +126,7 @@ class GwItemKeyManagerTest extends TestCase
     /**
      * Test that invalid quote item data fails a quote item ID equality check.
      *
-     * @covers \Vertex\Tax\Model\Calculation\VertexCalculator\ItemKeyManager::generateGwItemMapCode
+     * @covers \Vertex\Tax\Model\Calculation\VertexCalculator\GwItemKeyManager::generateGwItemMapCode
      */
     public function testGwItemMapCodeInequality()
     {

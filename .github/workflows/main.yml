@@ -78,12 +78,12 @@ jobs:
     - name: launch magento2 unit test only on vertex request logging module
       run: |
           sudo phpunit --version
-          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/request-logging-module/Test/Unit
-    
+          sudo php vendor/phpunit/phpunit/phpunit -c dev/tests/unit/phpunit.xml.dist vendor/vertexinc/*/Test/Unit  --coverage-clover clover.xml 
+          
     - name: Code Coverage Check
       uses: sourcetoad/phpunit-coverage-action@v1
       with:
-        clover_report_path: coverage/clover.xml
+        clover_report_path: clover.xml
         min_coverage_percent: 65
         fail_build_on_under: true
     

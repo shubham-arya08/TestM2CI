@@ -73,7 +73,7 @@ class LogEntryExportTest extends TestCase
     /**
      * Test the expected file path on export close.
      *
-     * @covers LogEntryExport::close()
+     * @covers \Vertex\RequestLogging\Model\LogEntryExport::close()
      * @throws FileSystemException
      * @return void
      */
@@ -90,13 +90,13 @@ class LogEntryExportTest extends TestCase
 
         $actualFilePath = $this->logEntryExport->close();
 
-        $this->assertEquals($expectedBasePath . $expectedFilename, $actualFilePath);
+        $this->assertEquals($expectedBasePath .'\\'. $expectedFilename, $actualFilePath);
     }
 
     /**
      * Test an unexpected file path on export close.
      *
-     * @covers LogEntryExport::close()
+     * @covers \Vertex\RequestLogging\Model\LogEntryExport::close()
      * @throws FileSystemException
      * @return void
      */
@@ -120,7 +120,7 @@ class LogEntryExportTest extends TestCase
     /**
      * Test that the file write stream can be acquired.
      *
-     * @covers LogEntryExport::open()
+     * @covers \Vertex\RequestLogging\Model\LogEntryExport::open()
      * @throws FileSystemException
      * @return void
      */
@@ -142,7 +142,7 @@ class LogEntryExportTest extends TestCase
     /**
      * Test that the export does not re-open a file if already working on an existing file.
      *
-     * @covers LogEntryExport::open()
+     * @covers \Vertex\RequestLogging\Model\LogEntryExport::open()
      * @throws FileSystemException
      * @return void
      */
@@ -159,7 +159,7 @@ class LogEntryExportTest extends TestCase
     /**
      * Test that archiving fails appropriately when no stream is available.
      *
-     * @covers LogEntryExport::write()
+     * @covers \Vertex\RequestLogging\Model\LogEntryExport::write()
      * @return void
      */
     public function testExpectedExceptionOnWriteFailure(): void
