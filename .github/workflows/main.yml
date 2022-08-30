@@ -97,9 +97,9 @@ jobs:
       with:
         # Args can be configured through Args section below or by sonar-project.properties in your projectBaseDir
         args: >
-          -Dsonar.projectKey=connector-orocommerce
-          -Dsonar.projectName=connector-orocommerce
-          -Dsonar.sources=src/Vertex/OSeriesBundle -Dsonar.php.coverage.reportPaths=coverage/clover.xml -Dsonar.php.tests.reportPath=coverage/report.junit.xml
+          -Dsonar.projectKey=connector-magento-vertex
+          -Dsonar.projectName=connector-magento-vertex
+          -Dsonar.sources=vendor/vertexinc -Dsonar.php.coverage.reportPaths=coverage/clover.xml -Dsonar.php.tests.reportPath=coverage/report.junit.xml
           -Dsonar.coverage.exclusions=src\Vertex\OSeriesBundle\Migrations\**,src\Vertex\OSeriesBundle\Resources\**,src\Vertex\OSeriesBundle\Command\**,src\Vertex\OSeriesBundle\Controller\Api\Rest\**
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
