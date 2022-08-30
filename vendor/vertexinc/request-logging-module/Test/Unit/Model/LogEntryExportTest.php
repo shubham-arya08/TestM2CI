@@ -90,7 +90,7 @@ class LogEntryExportTest extends TestCase
 
         $actualFilePath = $this->logEntryExport->close();
 
-        $this->assertEquals($expectedBasePath .'\\'. $expectedFilename, $actualFilePath);
+        $this->assertEquals($expectedBasePath .'\/'. $expectedFilename, $actualFilePath);
     }
 
     /**
