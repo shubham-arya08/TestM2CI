@@ -84,8 +84,6 @@ jobs:
       uses: sourcetoad/phpunit-coverage-action@v1
       with:
         clover_report_path: clover.xml
-        min_coverage_percent: 65
-        fail_build_on_under: true
     
     - name: fix code coverage paths
       working-directory: ./coverage
